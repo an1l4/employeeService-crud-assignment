@@ -12,9 +12,10 @@ import (
 func main() {
 	//creating new router using mux
 	r := mux.NewRouter()
+	controller.DummyData()
 
 	//adding some data to our dummy database to avoid to get empty data
-	controller.Dummydb()
+	//controller.Dummydb("fg45", "anila", "Bangaluru")
 
 	//router for getting all employee details from dummy db
 	r.HandleFunc("/employees", controller.GetEmployee).Methods("GET")
