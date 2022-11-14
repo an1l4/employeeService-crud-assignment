@@ -26,6 +26,8 @@ func main() {
 	//router for adding employee details to the dummy db
 	r.HandleFunc("/employee", controller.AddEmployee).Methods("POST")
 
+	r.HandleFunc("/employee/{id}", controller.UpdateEmployee).Methods("PUT")
+
 	fmt.Println("server running at 8080...")
 
 	//starting server

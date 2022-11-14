@@ -23,10 +23,10 @@ var employees = make(map[string]Employee)
 
 // func for adding some sample datas to our dummy database
 func DummyData() {
-	fmt.Println(employees)
+	//	fmt.Println(employees)
 	employees["1"] = Employee{"123", "anila", "bglr"}
 	employees["2"] = Employee{"321", "John", "London"}
-	fmt.Println(employees)
+	//	fmt.Println(employees)
 
 	//d.Id = append(Id, id)
 	//	d.Name = append(d.Name, name)
@@ -64,12 +64,39 @@ func AddEmployee(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var emp Employee
 	_ = json.NewDecoder(r.Body).Decode(&emp)
-	fmt.Println(emp)
+	//fmt.Println(emp)
 	rand.Seed(time.Now().UnixNano())
 	key := strconv.Itoa(rand.Intn(1000000000))
 
 	//employees = append(employees, emp)
 	employees[key] = emp
 	w.Write([]byte("Success"))
+
+}
+
+func UpdateEmployee(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	params := mux.Vars(r)
+
+	for index, item := range employees {
+		//	fmt.Println(index, item)
+		//	fmt.Println(item.Id)
+		fmt.Println(index)
+
+		if item.Id == params["id"] {
+			delete(employees, index)
+			var emp Employee
+			_ = json.NewDecoder(r.Body).Decode(&emp)
+
+			//rand.Seed(time.Now().UnixNano())
+			//key := strconv.Itoa(rand.Intn(1000000000))
+			key := index
+
+			employees[key] = emp
+			w.Write([]byte("data updated successfully"))
+		}
+
+	}
 
 }
