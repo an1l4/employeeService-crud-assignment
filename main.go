@@ -28,6 +28,8 @@ func main() {
 
 	r.HandleFunc("/employee/{id}", controller.UpdateEmployee).Methods("PUT")
 
+	r.HandleFunc("/employee/{id}", controller.DeleteEmployee).Methods("DELETE")
+
 	fmt.Println("server running at 8080...")
 
 	//starting server

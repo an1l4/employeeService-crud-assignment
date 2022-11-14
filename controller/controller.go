@@ -100,3 +100,18 @@ func UpdateEmployee(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+func DeleteEmployee(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	params := mux.Vars(r)
+
+	for index, item := range employees {
+		if item.Id == params["id"] {
+			delete(employees, index)
+			w.Write([]byte("employee details deleted"))
+
+		}
+	}
+
+}
